@@ -3,6 +3,7 @@ package com.dvoracek.exercise.application.shopping.order;
 import com.dvoracek.exercise.application.product.ProductApplicationService;
 import com.dvoracek.exercise.application.user.UserApplicationService;
 import com.dvoracek.exercise.domain.product.Product;
+import com.dvoracek.exercise.domain.product.ProductRepository;
 import com.dvoracek.exercise.domain.shopping.order.ShoppingOrder;
 import com.dvoracek.exercise.domain.shopping.order.ShoppingOrderRepository;
 import org.slf4j.Logger;
@@ -25,22 +26,22 @@ public class ShoppingOrderApplicationService {
     private final ShoppingOrderRepository shoppingOrderRepository;
     private final ProductApplicationService productApplicationService;
     private final UserApplicationService userApplicationService;
+    private final ProductRepository productRepository;
 
-    public ShoppingOrderApplicationService(ShoppingOrderRepository shoppingOrderRepository, ProductApplicationService productApplicationService, UserApplicationService userApplicationService) {
+    public ShoppingOrderApplicationService(ShoppingOrderRepository shoppingOrderRepository, ProductApplicationService productApplicationService, UserApplicationService userApplicationService, ProductRepository productRepository) {
         this.shoppingOrderRepository = shoppingOrderRepository;
         this.productApplicationService = productApplicationService;
         this.userApplicationService = userApplicationService;
+        this.productRepository = productRepository;
     }
 
     public ShoppingOrderDto createShoppingOrder(CreateShoppingOrderDto createShoppingOrderDto) {
-        List<Product> products = new ArrayList<>();
-        int priceTotal = 0;
-        for (Long id : createShoppingOrderDto.getProductIds()) {
-            Product product = productApplicationService.findById(id);
-            priceTotal += product.getProductPrice();
-            products.add(product);
-        }
 
+        List<Product> products = this.productRepository.findAllById(createShoppingOrderDto.getProductIds());
+        int priceTotal = products
+                .stream()
+                .map(Product::getProductPrice)
+                .reduce(0, Integer::sum);
         ShoppingOrder shoppingOrder = shoppingOrderRepository.save(new ShoppingOrder()
                 .setUser(userApplicationService.findById(createShoppingOrderDto.getUserId()))
                 .setShoppingOrderTimestamp(LocalDateTime.now())
@@ -52,7 +53,7 @@ public class ShoppingOrderApplicationService {
 
     public List<ShoppingOrderDto> getShoppingOrdersWithinPeriod(GetShoppingOrdersWithinPeriodDto getShoppingOrdersWithinPeriodDto) {
         return shoppingOrderRepository.getShoppingOrdersWithinPeriod(getShoppingOrdersWithinPeriodDto.getDateFrom(), getShoppingOrdersWithinPeriodDto.getDateTo())
-                .stream().map(shoppingOrder -> ShoppingOrderDto.toShoppingOrderDto(shoppingOrder)).collect(Collectors.toList());
+                .stream().map(ShoppingOrderDto::toShoppingOrderDto).collect(Collectors.toList());
     }
 }
 

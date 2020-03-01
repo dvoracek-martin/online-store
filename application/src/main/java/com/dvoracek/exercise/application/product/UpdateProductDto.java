@@ -2,7 +2,6 @@ package com.dvoracek.exercise.application.product;
 
 import com.sun.istack.NotNull;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -10,12 +9,10 @@ import javax.validation.constraints.Size;
 public class UpdateProductDto {
 
     @NotEmpty
-    @Valid
-    @Size(max = 1024)
+    @Size(max = 255)
     private String productName;
 
     @NotNull
-    @Valid
     @Min(value = 0)
     private int productPrice;
 

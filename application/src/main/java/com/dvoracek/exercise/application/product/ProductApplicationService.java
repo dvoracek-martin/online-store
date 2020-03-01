@@ -31,20 +31,19 @@ public class ProductApplicationService {
     }
 
     public ProductDto updateProduct(Long id, UpdateProductDto updateProductDto) {
-        Product productToUpdate = findById(id);
-        productToUpdate.setProductName(updateProductDto.getProductName());
-        productToUpdate.setProductPrice(updateProductDto.getProductPrice());
-        Product product = productRepository.save(productToUpdate);
-        LOGGER.info("Product updated. ID: " + product.getId() + ", productName: " + product.getProductName() + ", productPrice: " + product.getProductPrice());
+        Product product = findById(id);
+        product.setProductName(updateProductDto.getProductName());
+        product.setProductPrice(updateProductDto.getProductPrice());
+        LOGGER.info("Product updated. ID: " + product.getId() + ", name: " + product.getProductName() + ", price: " + product.getProductPrice());
         return ProductDto.toProductDto(product);
     }
 
-    public Product findById(Long id){
+    public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     public List<ProductDto> getAllProducts() {
         return productRepository.findAllByOrderByIdAsc().stream()
-                .map(product -> ProductDto.toProductDto(product)).collect(Collectors.toList());
+                .map(ProductDto::toProductDto).collect(Collectors.toList());
     }
 }

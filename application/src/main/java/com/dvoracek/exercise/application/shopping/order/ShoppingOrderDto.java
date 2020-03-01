@@ -71,6 +71,6 @@ public class ShoppingOrderDto {
                 .setPriceTotal(shoppingOrder.getPriceTotal())
                 .setShoppingOrderTimestamp(shoppingOrder.getShoppingOrderTimestamp())
                 .setProducts(shoppingOrder.getProducts().stream()
-                    .map(product -> ProductDto.toProductDto(product)).collect(Collectors.toList()));
+                        .map(ProductDto::toProductDto).collect(Collectors.toList()));
     }
 }
