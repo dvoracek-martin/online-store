@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    platform: h2
+    continue-on-error: true
+  jpa:
+    hibernate:
+      ddl-auto: create

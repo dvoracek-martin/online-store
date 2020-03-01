@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+#show sql statement
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5434/online-store
+    username: admin
+    password: secret
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+
+  liquibase:
+    change-log: classpath:/liquibase/master.xml
+    enabled: true
+
+  jackson:
+    generator:
+      write_numbers_as_strings: true
+    serialization:
+      write_dates_as_timestamps: false
+    deserialization:
+      fail_on_unknown_properties: false
+      fail_on_numbers_for_enums: true

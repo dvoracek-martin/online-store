@@ -1,0 +1,94 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="madv" id="20200229080000-01">
+
+        <createTable tableName="T_USER">
+            <column name="ID" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="PK_USER"
+                             unique="true"
+                             nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(255)">
+                <constraints nullable="false"
+                             unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="T_PRODUCT">
+            <column name="ID" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="PK_PRODUCT"
+                             unique="true"
+                             nullable="false"/>
+            </column>
+            <column name="PRODUCT_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_PRICE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="T_SHOPPING_ORDER">
+            <column name="ID" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="PK_ORDER"
+                             unique="true"
+                             nullable="false"/>
+            </column>
+            <column name="SHOPPING_ORDER_TIMESTAMP" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE_TOTAL" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="T_SHOPPING_ORDER_PRODUCTS">
+
+            <column name="SHOPPING_ORDER_ID" type="BIGINT">
+                <constraints nullable="false"
+                />
+            </column>
+            <column name="PRODUCTS_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="shopping_order_id"
+                                 baseTableName="T_SHOPPING_ORDER_PRODUCTS"
+                                 constraintName="fk_shopping_order"
+                                 deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_SHOPPING_ORDER"/>
+        <addForeignKeyConstraint baseColumnNames="products_id"
+                                 baseTableName="T_SHOPPING_ORDER_PRODUCTS"
+                                 constraintName="fk_product"
+                                 deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_PRODUCT"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="T_SHOPPING_ORDER"
+                                 constraintName="fk_user"
+                                 deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_USER"/>
+    </changeSet>
+
+
+    <!-- Insert test user -->
+    <changeSet author="madv" id="20200229080000-02">
+        <insert tableName="T_USER">
+            <column name="EMAIL" value="test@user.com"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
