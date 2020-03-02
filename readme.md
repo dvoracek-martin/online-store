@@ -33,7 +33,7 @@ Application listens on the port 8080 and has exposed following REST endpoints:
 Authentication could be handled by OAuth2, if we'd have a suitable authorization server. If not, plain Spring Security would also do the job.
 
 ## Redundancy
-There are more ways, how to make the service redundant. One is to dockerize it and deploy it on some Kubernetes-based solution. With proper setting, Kubernetes will take care of autoscaling and distribution of the load. You can read more about possibilities of the setting in Kubernets in one of my older pet-projects https://github.com/dvoracek-martin/Cheatsheet.
+There are more ways, how to make the service redundant. One is to dockerize it and deploy it on some Kubernetes-based solution. With proper setting, Kubernetes will take care of autoscaling and distribution of the load. You can read more about the possibilities of the setting in Kubernets in one of my older pet-projects https://github.com/dvoracek-martin/Cheatsheet.
 Another option would be to have a load balancer like Zuul and the applications physically running on several servers at once. 
 
 
