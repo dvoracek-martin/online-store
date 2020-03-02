@@ -1,6 +1,7 @@
 package  com.dvoracek.exercise.domain.product;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "T_PRODUCT")
@@ -42,5 +43,18 @@ public class Product {
     public Product setProductPrice(int productPrice) {
         this.productPrice = productPrice;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

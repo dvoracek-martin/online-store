@@ -1,6 +1,5 @@
 package com.dvoracek.exercise.application.shopping.order;
 
-import com.dvoracek.exercise.application.product.ProductDto;
 import com.dvoracek.exercise.domain.shopping.order.ShoppingOrder;
 
 import java.time.LocalDateTime;
@@ -15,7 +14,7 @@ public class ShoppingOrderDto {
 
     private LocalDateTime shoppingOrderTimestamp;
 
-    private List<ProductDto> products;
+    private List<PurchasedProductDto> products;
 
     private int priceTotal;
 
@@ -37,11 +36,11 @@ public class ShoppingOrderDto {
         return this;
     }
 
-    public List<ProductDto> getProducts() {
+    public List<PurchasedProductDto> getProducts() {
         return products;
     }
 
-    public ShoppingOrderDto setProducts(List<ProductDto> products) {
+    public ShoppingOrderDto setProducts(List<PurchasedProductDto> products) {
         this.products = products;
         return this;
     }
@@ -69,8 +68,12 @@ public class ShoppingOrderDto {
                 .setId(shoppingOrder.getId())
                 .setUserEMail(shoppingOrder.getUser().getEmail())
                 .setPriceTotal(shoppingOrder.getPriceTotal())
-                .setShoppingOrderTimestamp(shoppingOrder.getShoppingOrderTimestamp())
-                .setProducts(shoppingOrder.getProducts().stream()
-                        .map(ProductDto::toProductDto).collect(Collectors.toList()));
+                .setShoppingOrderTimestamp(shoppingOrder.getPurchasedAt())
+                .setProducts(toPurchasedProducts(shoppingOrder));
+    }
+
+    private static List<PurchasedProductDto> toPurchasedProducts(ShoppingOrder shoppingOrder) {
+        return shoppingOrder.getProducts().stream()
+                .map(PurchasedProductDto::toPurchasedProductDto).collect(Collectors.toList());
     }
 }

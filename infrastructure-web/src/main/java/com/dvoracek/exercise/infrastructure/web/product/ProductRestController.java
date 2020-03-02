@@ -29,14 +29,14 @@ public class ProductRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto createProduct(@RequestBody @Validated CreateProductDto createProductDto) throws JsonProcessingException {
-        LOGGER.debug("Received Http.POST /api/products : " + new ObjectMapper().writeValueAsString(createProductDto));
+        LOGGER.debug("Received Http.POST /api/products : {}", new ObjectMapper().writeValueAsString(createProductDto));
         return this.productApplicationService.createProduct(createProductDto);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto updateProduct(@PathVariable("id") Long id, @RequestBody @Validated UpdateProductDto updateProductDto) throws JsonProcessingException {
-        LOGGER.debug("Received Http.PUT /api/products : " +  new ObjectMapper().writeValueAsString(updateProductDto) + " with id: " + id);
+        LOGGER.debug("Received Http.PUT /api/products : {} with id: {}", new ObjectMapper().writeValueAsString(updateProductDto), id);
         return this.productApplicationService.updateProduct(id, updateProductDto);
     }
 

@@ -2,7 +2,7 @@ package com.dvoracek.exercise.infrastructure.web.shopping.order;
 
 import com.dvoracek.exercise.application.shopping.order.CreateShoppingOrderDto;
 import com.dvoracek.exercise.application.shopping.order.ShoppingOrderApplicationService;
-import com.dvoracek.exercise.application.user.UserApplicationService;
+import com.dvoracek.exercise.application.user.UserNotFoundException;
 import com.dvoracek.exercise.domain.product.ProductRepository;
 import com.dvoracek.exercise.domain.shopping.order.ShoppingOrderRepository;
 import com.dvoracek.exercise.domain.user.User;
@@ -23,12 +23,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.Arrays.asList;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -36,7 +38,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ShoppingOrderRestControllerTest {
-
 
     private static final String URL = "/api/shoppingOrders";
 
@@ -48,8 +49,6 @@ public class ShoppingOrderRestControllerTest {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    UserApplicationService userApplicationService;
 
     @Autowired
     ShoppingOrderRepository shoppingOrderRepository;
@@ -75,7 +74,7 @@ public class ShoppingOrderRestControllerTest {
     public void testCreateShoppingOrder() throws Exception {
         // GIVEN
         List<Long> productIds = asList(new Long[]{ProductFixture.id1, ProductFixture.id2, ProductFixture.id3});
-        User user = userApplicationService.findById(UserFixture.id1);
+        User user = userRepository.findById(UserFixture.id1).orElseThrow(() -> new UserNotFoundException(UserFixture.id1));
         CreateShoppingOrderDto createShoppingOrderDto = new CreateShoppingOrderDto()
                 .setUserId(user.getId())
                 .setProductIds(productIds);
@@ -101,39 +100,45 @@ public class ShoppingOrderRestControllerTest {
     @Test
     public void testGetShoppingOrdersWithinPeriod() throws Exception {
         // GIVEN
+        LocalDateTime time1 = LocalDateTime.now();
         List<Long> productIds1 = asList(new Long[]{ProductFixture.id1, ProductFixture.id2, ProductFixture.id3});
-        User user1 = userApplicationService.findById(UserFixture.id1);
+        User user1 = userRepository.findById(UserFixture.id1).orElseThrow(() -> new UserNotFoundException(UserFixture.id1));
         CreateShoppingOrderDto createShoppingOrderDto1 = new CreateShoppingOrderDto()
                 .setUserId(user1.getId())
                 .setProductIds(productIds1);
         shoppingOrderApplicationService.createShoppingOrder(createShoppingOrderDto1);
+        await().timeout(1000, TimeUnit.MILLISECONDS);
 
         List<Long> productIds2 = asList(new Long[]{ProductFixture.id1, ProductFixture.id3});
-        User user2 = userApplicationService.findById(UserFixture.id2);
+        User user2 = userRepository.findById(UserFixture.id1).orElseThrow(() -> new UserNotFoundException(UserFixture.id1));
         CreateShoppingOrderDto createShoppingOrderDto2 = new CreateShoppingOrderDto()
                 .setUserId(user2.getId())
                 .setProductIds(productIds2);
         shoppingOrderApplicationService.createShoppingOrder(createShoppingOrderDto2);
+        await().timeout(1000, TimeUnit.MILLISECONDS);
+        LocalDateTime time2 = LocalDateTime.now();
 
         List<Long> productIds3 = asList(new Long[]{ProductFixture.id3});
-        User user3 = userApplicationService.findById(UserFixture.id1);
+        User user3 = userRepository.findById(UserFixture.id1).orElseThrow(() -> new UserNotFoundException(UserFixture.id1));
         CreateShoppingOrderDto createShoppingOrderDto3 = new CreateShoppingOrderDto()
                 .setUserId(user3.getId())
                 .setProductIds(productIds3);
         shoppingOrderApplicationService.createShoppingOrder(createShoppingOrderDto3);
 
         // WHEN
-        ResultActions resultActions = this.mockMvc.perform(post(URL)
+        ResultActions resultActions = this.mockMvc.perform(get(URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
-                .param("fromDate", String.valueOf(LocalDate.now().minusDays(31)))
-                .param("toDate", String.valueOf(LocalDate.now().plusDays(31)))
+                .param("dateFrom","2019-01-01")
+                .param("dateTo", "2020-12-12")
         );
 
         //THEN
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.totalElements").value("3"));
+                .andExpect(jsonPath("$.[0].userEMail").value(equalTo(user1.getEmail())))
+                .andExpect(jsonPath("$.[1].userEMail").value(equalTo(user2.getEmail())))
+                .andExpect(jsonPath("$.[2].userEMail").value(equalTo(user3.getEmail())));
     }
 }

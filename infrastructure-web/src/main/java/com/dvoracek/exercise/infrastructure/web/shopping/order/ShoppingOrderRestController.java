@@ -30,14 +30,14 @@ public class ShoppingOrderRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ShoppingOrderDto createOrder(@RequestBody @Validated CreateShoppingOrderDto createShoppingOrderDto) throws JsonProcessingException {
-        LOGGER.debug("Received Http.POST /api/orders : " + new ObjectMapper().writeValueAsString(createShoppingOrderDto));
+        LOGGER.debug("Received Http.POST /api/shoppingOrders : {}", new ObjectMapper().writeValueAsString(createShoppingOrderDto));
         return this.shoppingOrderApplicationService.createShoppingOrder(createShoppingOrderDto);
     }
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<ShoppingOrderDto> getShoppingOrdersWithinPeriod(@RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
-        LOGGER.debug("Received Http.GET /api/orders with requestParams dateFrom " + dateFrom + " & dateTo:" + dateTo);
+        LOGGER.debug("Received Http.GET /api/shoppingOrders with requestParams dateFrom {} & dateTo:{}", dateFrom, dateTo);
         GetShoppingOrdersWithinPeriodDto getShoppingOrdersWithinPeriodDto = new GetShoppingOrdersWithinPeriodDto()
                 .setDateFrom(LocalDate.parse(dateFrom).atTime(0, 0))
                 .setDateTo(LocalDate.parse(dateTo).atTime(0, 0));

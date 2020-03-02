@@ -8,71 +8,69 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "T_SHOPPING_ORDER")
 public class ShoppingOrder {
-    public ShoppingOrder() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne (cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @NotNull
     private User user;
 
     @NotNull
-    private LocalDateTime shoppingOrderTimestamp;
+    private LocalDateTime purchasedAt;
 
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "t_shopping_order_products", joinColumns = @JoinColumn(name = "shopping_order_id"))
     @Column(name = "products_id")
-    private List<Product> products = new ArrayList<>();
+    private List<PurchasedProduct> products = new ArrayList<>();
 
     private int priceTotal;
+
+    protected ShoppingOrder() {
+        // used for reflection
+    }
+
+    public ShoppingOrder(User user, List<Product> products) {
+        this.user = user;
+        this.handleProducts(products);
+        this.purchasedAt = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
     }
 
 
-
     public User getUser() {
         return user;
     }
 
-    public ShoppingOrder setUser(User owner) {
-        this.user = owner;
-        return this;
+    public LocalDateTime getPurchasedAt() {
+        return purchasedAt;
     }
 
-    public LocalDateTime getShoppingOrderTimestamp() {
-        return shoppingOrderTimestamp;
-    }
-
-    public ShoppingOrder setShoppingOrderTimestamp(LocalDateTime orderTimestamp) {
-        this.shoppingOrderTimestamp = orderTimestamp;
-        return this;
-    }
-
-    public List<Product> getProducts() {
+    public List<PurchasedProduct> getProducts() {
         return products;
     }
 
-    public ShoppingOrder setProducts(List<Product> products) {
-        this.products = products;
-        return this;
+    private void handleProducts(List<Product> products) {
+        this.priceTotal = products
+                .stream()
+                .map(Product::getProductPrice)
+                .reduce(0, Integer::sum);
+        this.products = products.stream()
+                .map(PurchasedProduct::new)
+                .collect(Collectors.toList());
     }
 
     public int getPriceTotal() {
         return priceTotal;
-    }
-
-    public ShoppingOrder setPriceTotal(int priceTotal) {
-        this.priceTotal = priceTotal;
-        return this;
     }
 }
