@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ProductRestControllerTest {
 
-
     private static final String URL = "/api/products";
 
     @Autowired

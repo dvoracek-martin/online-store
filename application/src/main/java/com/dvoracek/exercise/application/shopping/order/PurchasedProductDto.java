@@ -19,10 +19,6 @@ public class PurchasedProductDto {
         return this;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
     public PurchasedProductDto setPrice(BigDecimal price) {
         this.price = price;
         return this;

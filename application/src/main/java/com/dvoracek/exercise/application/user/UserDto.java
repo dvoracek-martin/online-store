@@ -17,10 +17,6 @@ public class UserDto {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public UserDto setEmail(String email) {
         this.email = email;
         return this;

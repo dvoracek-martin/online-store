@@ -45,12 +45,4 @@ public class ProductDto {
                 .setProductName(product.getProductName())
                 .setProductPrice(product.getProductPrice());
     }
-
-
-    public static Product fromProductDto(ProductDto productDto){
-        return new Product()
-                .setId(productDto.getId())
-                .setProductName(productDto.getProductName())
-                .setProductPrice(productDto.getProductPrice());
-    }
 }

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "T_USER")
@@ -49,12 +50,16 @@ public class User {
         return this;
     }
 
-    public List<ShoppingOrder> getShoppingOrders() {
-        return shoppingOrders;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
     }
 
-    public User setShoppingOrders(List<ShoppingOrder> shoppingOrders) {
-        this.shoppingOrders = shoppingOrders;
-        return this;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

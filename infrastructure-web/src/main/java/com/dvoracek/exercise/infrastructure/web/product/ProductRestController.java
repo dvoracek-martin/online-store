@@ -36,7 +36,7 @@ public class ProductRestController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto updateProduct(@PathVariable("id") Long id, @RequestBody @Validated UpdateProductDto updateProductDto) throws JsonProcessingException {
-        LOGGER.debug("Received Http.PUT /api/products : {} with id: {}", new ObjectMapper().writeValueAsString(updateProductDto), id);
+        LOGGER.debug("Received Http.PUT /api/products : {} with an id: {}", new ObjectMapper().writeValueAsString(updateProductDto), id);
         return this.productApplicationService.updateProduct(id, updateProductDto);
     }
 

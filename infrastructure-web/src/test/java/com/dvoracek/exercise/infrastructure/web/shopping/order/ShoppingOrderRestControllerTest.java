@@ -23,14 +23,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.Arrays.asList;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -100,7 +100,6 @@ public class ShoppingOrderRestControllerTest {
     @Test
     public void testGetShoppingOrdersWithinPeriod() throws Exception {
         // GIVEN
-        LocalDateTime time1 = LocalDateTime.now();
         List<Long> productIds1 = asList(new Long[]{ProductFixture.id1, ProductFixture.id2, ProductFixture.id3});
         User user1 = userRepository.findById(UserFixture.id1).orElseThrow(() -> new UserNotFoundException(UserFixture.id1));
         CreateShoppingOrderDto createShoppingOrderDto1 = new CreateShoppingOrderDto()
@@ -116,7 +115,6 @@ public class ShoppingOrderRestControllerTest {
                 .setProductIds(productIds2);
         shoppingOrderApplicationService.createShoppingOrder(createShoppingOrderDto2);
         await().timeout(1000, TimeUnit.MILLISECONDS);
-        LocalDateTime time2 = LocalDateTime.now();
 
         List<Long> productIds3 = asList(new Long[]{ProductFixture.id3});
         User user3 = userRepository.findById(UserFixture.id1).orElseThrow(() -> new UserNotFoundException(UserFixture.id1));

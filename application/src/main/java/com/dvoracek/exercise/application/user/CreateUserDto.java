@@ -7,9 +7,4 @@ public class CreateUserDto {
     public String getEmail() {
         return email;
     }
-
-    public CreateUserDto setEmail(String email) {
-        this.email = email;
-        return this;
-    }
 }
