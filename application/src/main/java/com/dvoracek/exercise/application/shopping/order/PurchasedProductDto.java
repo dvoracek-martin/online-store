@@ -5,6 +5,7 @@ import com.dvoracek.exercise.domain.shopping.order.PurchasedProduct;
 import java.math.BigDecimal;
 
 public class PurchasedProductDto {
+
     private Long id;
 
     private BigDecimal price;

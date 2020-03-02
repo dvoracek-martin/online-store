@@ -14,9 +14,6 @@ import java.util.List;
 @Table(name = "T_USER")
 public class User {
 
-    public User() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +26,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShoppingOrder> shoppingOrders = new ArrayList<>();
+
+    public User() {
+        // for reflection
+    }
 
     public Long getId() {
         return id;

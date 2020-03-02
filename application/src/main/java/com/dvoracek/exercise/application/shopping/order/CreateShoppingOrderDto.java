@@ -9,7 +9,6 @@ public class CreateShoppingOrderDto {
     @NotNull
     private List<Long> productIds;
 
-
     @NotNull
     private Long userId;
 

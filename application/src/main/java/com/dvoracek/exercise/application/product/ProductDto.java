@@ -5,6 +5,7 @@ import com.dvoracek.exercise.domain.product.Product;
 import java.math.BigDecimal;
 
 public class ProductDto {
+
     private Long id;
 
     private String productName;
