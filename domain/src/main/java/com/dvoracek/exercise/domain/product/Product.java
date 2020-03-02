@@ -7,9 +7,6 @@ import java.util.Objects;
 @Table(name = "T_PRODUCT")
 public class Product {
 
-    public Product() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +14,10 @@ public class Product {
     private String productName;
 
     private int productPrice;
+
+    public Product() {
+        // for reflection
+    }
 
     public Product setId(Long id) {
         this.id = id;
