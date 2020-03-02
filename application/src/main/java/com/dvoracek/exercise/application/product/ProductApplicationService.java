@@ -26,7 +26,7 @@ public class ProductApplicationService {
         Product product = productRepository.save(new Product()
                 .setProductName(createProductDto.getProductName())
                 .setProductPrice(createProductDto.getProductPrice()));
-        LOGGER.info("Product created. ID: " + product.getId() + ", productName: " + product.getProductName() + ", productPrice: " + product.getProductPrice());
+        LOGGER.info("Product created. ID: {}, productName: {}, productPrice: {}", product.getId(), product.getProductName(), product.getProductPrice());
         return ProductDto.toProductDto(product);
     }
 
@@ -34,7 +34,7 @@ public class ProductApplicationService {
         Product product = findById(id);
         product.setProductName(updateProductDto.getProductName());
         product.setProductPrice(updateProductDto.getProductPrice());
-        LOGGER.info("Product updated. ID: " + product.getId() + ", name: " + product.getProductName() + ", price: " + product.getProductPrice());
+        LOGGER.info("Product updated. ID: {}, name: {}, price: {}", product.getId(), product.getProductName(), product.getProductPrice());
         return ProductDto.toProductDto(product);
     }
 
