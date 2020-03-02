@@ -77,10 +77,10 @@ public class ProductApplicationServiceTest {
         assertThat(allProducts).isNotNull();
         assertThat(allProducts).size().isEqualTo(3);
         assertThat(allProducts.get(0).getProductName()).isEqualTo(createProductDto1.getProductName());
-        assertThat(allProducts.get(0).getProductPrice()).isEqualTo(createProductDto1.getProductPrice());
+        assertThat(allProducts.get(0).getProductPrice().compareTo(createProductDto1.getProductPrice())).isEqualTo(0);
         assertThat(allProducts.get(1).getProductName()).isEqualTo(createProductDto2.getProductName());
-        assertThat(allProducts.get(1).getProductPrice()).isEqualTo(createProductDto2.getProductPrice());
+        assertThat(allProducts.get(1).getProductPrice().compareTo(createProductDto2.getProductPrice())).isEqualTo(0);
         assertThat(allProducts.get(2).getProductName()).isEqualTo(createProductDto3.getProductName());
-        assertThat(allProducts.get(2).getProductPrice()).isEqualTo(createProductDto3.getProductPrice());
+        assertThat(allProducts.get(2).getProductPrice().compareTo(createProductDto3.getProductPrice())).isEqualTo(0);
     }
 }

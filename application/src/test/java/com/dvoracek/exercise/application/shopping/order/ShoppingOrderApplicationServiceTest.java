@@ -67,10 +67,9 @@ public class ShoppingOrderApplicationServiceTest {
         assertThat(shoppingOrderDto.getPurchasedAt()).isBefore(LocalDateTime.now());
         assertThat(shoppingOrderDto.getUserEMail()).isEqualTo(UserFixture.email1);
         assertThat(shoppingOrderDto.getProducts().size()).isEqualTo(3);
-        assertThat(shoppingOrderDto.getPriceTotal()).isEqualTo(
-                ProductFixture.productPrice1
-                        .add(ProductFixture.productPrice2)
-                        .add(ProductFixture.productPrice3));
+        assertThat(shoppingOrderDto.getPriceTotal().compareTo(ProductFixture.productPrice1
+                .add(ProductFixture.productPrice2)
+                .add(ProductFixture.productPrice3))).isEqualTo(0);
     }
 
     @Test

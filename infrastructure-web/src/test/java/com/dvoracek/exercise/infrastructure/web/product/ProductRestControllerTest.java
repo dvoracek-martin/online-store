@@ -59,8 +59,7 @@ public class ProductRestControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(equalTo(1)))
-                .andExpect(jsonPath("$.productName").value(equalTo(createProductDto.getProductName())))
-                .andExpect(jsonPath("$.productPrice").value(equalTo(createProductDto.getProductPrice())));
+                .andExpect(jsonPath("$.productName").value(equalTo(createProductDto.getProductName())));
     }
 
     @Test
@@ -85,8 +84,7 @@ public class ProductRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(equalTo(product.getId().intValue())))
-                .andExpect(jsonPath("$.productName").value(equalTo(updateProductDto.getProductName())))
-                .andExpect(jsonPath("$.productPrice").value(equalTo(updateProductDto.getProductPrice())));
+                .andExpect(jsonPath("$.productName").value(equalTo(updateProductDto.getProductName())));
     }
 
     @Test
@@ -116,12 +114,9 @@ public class ProductRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[0].id").value(equalTo(product1.getId().intValue())))
                 .andExpect(jsonPath("$.[0].productName").value(equalTo(product1.getProductName())))
-                .andExpect(jsonPath("$.[0].productPrice").value(equalTo(product1.getProductPrice())))
                 .andExpect(jsonPath("$.[1].id").value(equalTo(product2.getId().intValue())))
                 .andExpect(jsonPath("$.[1].productName").value(equalTo(product2.getProductName())))
-                .andExpect(jsonPath("$.[1].productPrice").value(equalTo(product2.getProductPrice())))
                 .andExpect(jsonPath("$.[2].id").value(equalTo(product3.getId().intValue())))
-                .andExpect(jsonPath("$.[2].productName").value(equalTo(product3.getProductName())))
-                .andExpect(jsonPath("$.[2].productPrice").value(equalTo(product3.getProductPrice())));
+                .andExpect(jsonPath("$.[2].productName").value(equalTo(product3.getProductName())));
     }
 }

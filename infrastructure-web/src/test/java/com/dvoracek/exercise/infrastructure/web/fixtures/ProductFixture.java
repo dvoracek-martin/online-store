@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class ProductFixture {
     public static final Long id1 = 1L;
     public static final String productName1 = "productName1";
-    public static final BigDecimal productPrice1 =BigDecimal.valueOf(1);
+    public static final BigDecimal productPrice1 =BigDecimal.valueOf(1.00);
     public static final Long id2 = 2L;
     public static final String productName2 = "productName2";
     public static final BigDecimal productPrice2 = BigDecimal.valueOf(2.3);
