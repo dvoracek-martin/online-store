@@ -24,10 +24,6 @@ spring:
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
 
-  liquibase:
-    change-log: classpath:/liquibase/master.xml
-    enabled: false
-
   jackson:
     generator:
       write_numbers_as_strings: true
