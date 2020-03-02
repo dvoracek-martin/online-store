@@ -15,17 +15,17 @@ Application listens on the port 8080 and has exposed following REST endpoints:
 
 ##UserRestController:
 
-* Http.POST ("/api/users"), RequestBody: { "email": "String"}, ResponseBody: { "id": Long, "email": "String"}, HttpStatus.CREATED
-* Http.GET ("/api/users/getAllUsers"), RequestBody:, ResponseBody: [{ "id": Long,  "email": "String"}...], HttpStatus.OK
+* Http.POST ("/api/users"), RequestBody: { "email": String}, ResponseBody: { "id": Long, "email": String}, HttpStatus.CREATED
+* Http.GET ("/api/users/getAllUsers"), RequestBody:, ResponseBody: [{ "id": Long,  "email": String}...], HttpStatus.OK
 
 ##ProductRestController:
-* Http.POST ("/api/products), RequestBody: { "productName": "String","productPrice": "BigDecimal"}, ResponseBody:{ "id":Long, "productName": "String","productPrice": BigDecimal}, HttpStatus.CREATED
-* Http.PUT ("/api/products/{id}"), RequestParam: "id":Long, RequestBody: { "productName": "String","productPrice": BigDecimal}, ResponseBody:{ "id":Long, "productName": String,"productPrice": BigDecimal}, HttpStatus.OK
-* Http.GET ("/api/products/getAllProducts"), RequestBody:, ResponseBody: [{ "id":Long, "productName": "String","productPrice": BigDecimal}...], HttpStatus.OK
+* Http.POST ("/api/products), RequestBody: { "productName": "String","productPrice": BigDecimal}, ResponseBody:{ "id":Long, "productName": "String","productPrice": BigDecimal}, HttpStatus.CREATED
+* Http.PUT ("/api/products/{id}"), RequestParam: "id":Long, RequestBody: { "productName": String,"productPrice": BigDecimal}, ResponseBody:{ "id":Long, "productName": String,"productPrice": BigDecimal}, HttpStatus.OK
+* Http.GET ("/api/products/getAllProducts"), RequestBody:, ResponseBody: [{ "id":Long, "productName": String,"productPrice": BigDecimal}...], HttpStatus.OK
 
 ##ShoppingOrderRestController:
-* Http.POST ("/api/shoppingOrders), RequestBody: {"userId":Long, "productIds":Long[]}, ResponseBody: { "id":Long, "userEMail": String,"purchasedAt": LocalDateTime, "products" : [{ "id":Long, "productName": "String","productPrice": BigDecimal}..],"priceTotal":BigDecimal}, HttpStatus.CREATED
-* Http.GET ("/api/shoppingOrders"), RequestBody:, RequestParam: "dateFrom":String, RequestParam: "dateTo":String, ResponseBody: [{ "id":Long, "userEMail": String,"purchasedAt": LocalDateTime, "products" : [{ "id":Long, "productName": "String","productPrice": BigDecimal}..],"priceTotal":BigDecimal}...], HttpStatus.OK
+* Http.POST ("/api/shoppingOrders), RequestBody: {"userId":Long, "productIds":Long[]}, ResponseBody: { "id":Long, "userEMail": String,"purchasedAt": LocalDateTime, "products" : [{ "id":Long, "productName": String,"productPrice": BigDecimal}..],"priceTotal":BigDecimal}, HttpStatus.CREATED
+* Http.GET ("/api/shoppingOrders"), RequestBody:, RequestParam: "dateFrom":String, RequestParam: "dateTo":String, ResponseBody: [{ "id":Long, "userEMail": String,"purchasedAt": LocalDateTime, "products" : [{ "id":Long, "productName": String,"productPrice": BigDecimal}..],"priceTotal":BigDecimal}...], HttpStatus.OK
 
 
 
