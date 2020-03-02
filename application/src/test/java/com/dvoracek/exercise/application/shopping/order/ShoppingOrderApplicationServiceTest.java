@@ -69,9 +69,8 @@ public class ShoppingOrderApplicationServiceTest {
         assertThat(shoppingOrderDto.getProducts().size()).isEqualTo(3);
         assertThat(shoppingOrderDto.getPriceTotal()).isEqualTo(
                 ProductFixture.productPrice1
-                        + ProductFixture.productPrice2
-                        + ProductFixture.productPrice3
-        );
+                        .add(ProductFixture.productPrice2)
+                        .add(ProductFixture.productPrice3));
     }
 
     @Test

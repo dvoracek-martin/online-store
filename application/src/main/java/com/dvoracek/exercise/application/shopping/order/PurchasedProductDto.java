@@ -2,10 +2,12 @@ package com.dvoracek.exercise.application.shopping.order;
 
 import com.dvoracek.exercise.domain.shopping.order.PurchasedProduct;
 
+import java.math.BigDecimal;
+
 public class PurchasedProductDto {
     private Long id;
 
-    private int price;
+    private BigDecimal price;
 
     public Long getId() {
         return id;
@@ -16,11 +18,11 @@ public class PurchasedProductDto {
         return this;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public PurchasedProductDto setPrice(int price) {
+    public PurchasedProductDto setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }

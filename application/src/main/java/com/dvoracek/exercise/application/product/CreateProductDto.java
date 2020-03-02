@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 public class CreateProductDto {
 
@@ -14,7 +15,7 @@ public class CreateProductDto {
 
     @NotNull
     @Min(value = 0)
-    private int productPrice;
+    private BigDecimal productPrice;
 
     public String getProductName() {
         return productName;
@@ -25,11 +26,11 @@ public class CreateProductDto {
         return this;
     }
 
-    public int getProductPrice() {
+    public BigDecimal getProductPrice() {
         return productPrice;
     }
 
-    public CreateProductDto setProductPrice(int productPrice) {
+    public CreateProductDto setProductPrice(BigDecimal productPrice) {
         this.productPrice = productPrice;
         return this;
     }

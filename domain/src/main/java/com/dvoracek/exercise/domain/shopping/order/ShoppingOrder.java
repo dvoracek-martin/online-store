@@ -5,6 +5,7 @@ import com.dvoracek.exercise.domain.user.User;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ShoppingOrder {
     @Column(name = "products_id")
     private List<PurchasedProduct> products = new ArrayList<>();
 
-    private int priceTotal;
+    private BigDecimal priceTotal;
 
     protected ShoppingOrder() {
         // used for reflection
@@ -61,16 +62,15 @@ public class ShoppingOrder {
     }
 
     private void handleProducts(List<Product> products) {
-        this.priceTotal = products
-                .stream()
-                .map(Product::getProductPrice)
-                .reduce(0, Integer::sum);
+        this.priceTotal = products.stream()
+                .map(x -> x.getProductPrice())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
         this.products = products.stream()
                 .map(PurchasedProduct::new)
                 .collect(Collectors.toList());
     }
 
-    public int getPriceTotal() {
+    public BigDecimal getPriceTotal() {
         return priceTotal;
     }
 }

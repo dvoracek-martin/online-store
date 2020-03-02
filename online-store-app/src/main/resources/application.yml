@@ -20,13 +20,13 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
 
   liquibase:
     change-log: classpath:/liquibase/master.xml
-    enabled: true
+    enabled: false
 
   jackson:
     generator:

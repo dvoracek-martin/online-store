@@ -5,13 +5,14 @@ import com.dvoracek.exercise.domain.product.Product;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Embeddable
 @Access(AccessType.FIELD)
 public class PurchasedProduct {
     private Long id;
-    private int price;
+    private BigDecimal price;
 
     protected PurchasedProduct() {
         // for reflection
@@ -21,7 +22,7 @@ public class PurchasedProduct {
         return id;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

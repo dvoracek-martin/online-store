@@ -1,6 +1,7 @@
 package com.dvoracek.exercise.domain.user;
 
 import com.dvoracek.exercise.domain.shopping.order.ShoppingOrder;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -23,6 +24,7 @@ public class User {
     @NotBlank
     @Email
     @Size(max = 255)
+    @Column(unique = true)
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

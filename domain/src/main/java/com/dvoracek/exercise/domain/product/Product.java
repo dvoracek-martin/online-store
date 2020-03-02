@@ -1,6 +1,8 @@
-package  com.dvoracek.exercise.domain.product;
+package com.dvoracek.exercise.domain.product;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +15,7 @@ public class Product {
 
     private String productName;
 
-    private int productPrice;
+    private BigDecimal productPrice;
 
     public Product() {
         // for reflection
@@ -37,12 +39,12 @@ public class Product {
         return this;
     }
 
-    public int getProductPrice() {
+    public BigDecimal getProductPrice() {
         return productPrice;
     }
 
-    public Product setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
+    public Product setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice.round(new MathContext(2));
         return this;
     }
 

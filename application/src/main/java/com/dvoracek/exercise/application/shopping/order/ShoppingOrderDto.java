@@ -2,6 +2,7 @@ package com.dvoracek.exercise.application.shopping.order;
 
 import com.dvoracek.exercise.domain.shopping.order.ShoppingOrder;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class ShoppingOrderDto {
 
     private List<PurchasedProductDto> products;
 
-    private int priceTotal;
+    private BigDecimal priceTotal;
 
     public Long getId() {
         return id;
@@ -54,11 +55,11 @@ public class ShoppingOrderDto {
         return this;
     }
 
-    public int getPriceTotal() {
+    public BigDecimal getPriceTotal() {
         return priceTotal;
     }
 
-    public ShoppingOrderDto setPriceTotal(int priceTotal) {
+    public ShoppingOrderDto setPriceTotal(BigDecimal priceTotal) {
         this.priceTotal = priceTotal;
         return this;
     }
