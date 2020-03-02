@@ -27,14 +27,14 @@ public class UserRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createOrder(@RequestBody @Validated CreateUserDto createUserDto) throws JsonProcessingException {
+    public UserDto creteUser(@RequestBody @Validated CreateUserDto createUserDto) throws JsonProcessingException {
         LOGGER.debug("Received Http.POST /api/users : {}", new ObjectMapper().writeValueAsString(createUserDto));
         return this.userApplicationService.createUser(createUserDto);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> getAll()  {
+    public List<UserDto> getAllUsers()  {
         LOGGER.debug("Received Http.GET /api/users");
         return this.userApplicationService.getAll();
     }

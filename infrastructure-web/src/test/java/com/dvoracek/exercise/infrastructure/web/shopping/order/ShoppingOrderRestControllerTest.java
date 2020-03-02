@@ -91,7 +91,7 @@ public class ShoppingOrderRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(equalTo(1)))
                 .andExpect(jsonPath("$.userEMail").value(equalTo(user.getEmail())))
-                .andExpect(jsonPath("$.shoppingOrderTimestamp").isNotEmpty())
+                .andExpect(jsonPath("$.purchasedAt").isNotEmpty())
                 .andExpect(jsonPath("$.products[0].id").value(equalTo(createShoppingOrderDto.getProductIds().get(0).intValue())))
                 .andExpect(jsonPath("$.products[1].id").value(equalTo(createShoppingOrderDto.getProductIds().get(1).intValue())))
                 .andExpect(jsonPath("$.products[2].id").value(equalTo(createShoppingOrderDto.getProductIds().get(2).intValue())));

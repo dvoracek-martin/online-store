@@ -64,7 +64,7 @@ public class ShoppingOrderApplicationServiceTest {
 
         // THEN
         assertThat(shoppingOrderDto).isNotNull();
-        assertThat(shoppingOrderDto.getShoppingOrderTimestamp()).isBefore(LocalDateTime.now());
+        assertThat(shoppingOrderDto.getPurchasedAt()).isBefore(LocalDateTime.now());
         assertThat(shoppingOrderDto.getUserEMail()).isEqualTo(UserFixture.email1);
         assertThat(shoppingOrderDto.getProducts().size()).isEqualTo(3);
         assertThat(shoppingOrderDto.getPriceTotal()).isEqualTo(

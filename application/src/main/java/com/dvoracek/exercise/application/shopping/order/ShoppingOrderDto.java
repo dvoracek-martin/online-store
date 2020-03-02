@@ -13,7 +13,7 @@ public class ShoppingOrderDto {
 
     private String userEMail;
 
-    private LocalDateTime shoppingOrderTimestamp;
+    private LocalDateTime purchasedAt;
 
     private List<PurchasedProductDto> products;
 
@@ -28,12 +28,12 @@ public class ShoppingOrderDto {
         return this;
     }
 
-    public LocalDateTime getShoppingOrderTimestamp() {
-        return shoppingOrderTimestamp;
+    public LocalDateTime getPurchasedAt() {
+        return purchasedAt;
     }
 
-    public ShoppingOrderDto setShoppingOrderTimestamp(LocalDateTime shoppingOrderTimestamp) {
-        this.shoppingOrderTimestamp = shoppingOrderTimestamp;
+    public ShoppingOrderDto setPurchasedAt(LocalDateTime purchasedAt) {
+        this.purchasedAt = purchasedAt;
         return this;
     }
 
@@ -69,7 +69,7 @@ public class ShoppingOrderDto {
                 .setId(shoppingOrder.getId())
                 .setUserEMail(shoppingOrder.getUser().getEmail())
                 .setPriceTotal(shoppingOrder.getPriceTotal())
-                .setShoppingOrderTimestamp(shoppingOrder.getPurchasedAt())
+                .setPurchasedAt(shoppingOrder.getPurchasedAt())
                 .setProducts(toPurchasedProducts(shoppingOrder));
     }
 
